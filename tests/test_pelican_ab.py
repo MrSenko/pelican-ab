@@ -20,8 +20,6 @@ THEME_PATH = os.path.join(CURRENT_DIR, "themes")
 class TestPelicanAB(unittest.TestCase):
     def _render(self, run=True):
         self.temp_path = mkdtemp(prefix='pelican-ab.')
-#        pelican_ab_path, _ = os.path.join(os.path.split(pelican_ab.__file__))
-#        self.pelican_ab_static = os.path.join(pelican_ab_path, 'static')
         self.settings = read_settings(path=None,
                                       override={
                                         'PATH': INPUT_PATH,
@@ -55,7 +53,8 @@ class TestPelicanAB(unittest.TestCase):
             THEN the control experiment is rendered
         """
         self._render()
-        sample_output = open(os.path.join(self.temp_path, 'a-sample-page.html'), 'r').read()
+        sample_output = open(os.path.join(self.temp_path,
+                                          'a-sample-page.html'), 'r').read()
         self.assertTrue('This is the control experiment' in sample_output)
         self.assertFalse('This is v1 experiment' in sample_output)
 
@@ -64,9 +63,10 @@ class TestPelicanAB(unittest.TestCase):
             WHEN AB_EXPERIMENT is configured,
             THEN that particular experiment is rendered
         """
-        os.environ[jinja_ab._ENV] = 'v1'
+        v1 = 'v1'
+        os.environ[jinja_ab._ENV] = v1
         self._render()
-        sample_output = open(os.path.join(self.temp_path, 'a-sample-page.html'), 'r').read()
+        sample_output = open(os.path.join(self.temp_path, v1,
+                                          'a-sample-page.html'), 'r').read()
         self.assertFalse('This is the control experiment' in sample_output)
         self.assertTrue('This is v1 experiment' in sample_output)
-
