@@ -5,7 +5,7 @@ python:
   - 3.4
   - 3.5
 install:
-  - pip install coverage flake8 pelican==$PELICAN jinja-ab==$JINJA_AB
+  - pip install coverage flake8 Markdown pelican==$PELICAN jinja-ab==$JINJA_AB
 script:
   - ./test.sh
 env:
