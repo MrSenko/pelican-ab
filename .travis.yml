@@ -4,8 +4,8 @@ python:
   - 2.7
   - 3.3
 install:
-  - pip install coverage flake8 pelican==$PELICAN_VERSION jinja-ab=$JINJA_AB_VERSION
+  - pip install coverage flake8 pelican==$PELICAN jinja-ab==$JINJA_AB
 script:
   - ./test.sh
 env:
-  - PELICAN_VERSION=3.6.3 JINJA_AB_VERSION=0.2.1
+  - PELICAN=3.6.3 JINJA_AB=0.2.1
