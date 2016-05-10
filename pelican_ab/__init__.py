@@ -35,6 +35,15 @@ class PelicanAbExperimentWriter(Writer):
                                    _orig_content_url.fget(s))
             URLWrapper.url = property(lambda s: experiment + '/' +
                                       _orig_urlwrapper_url.fget(s))
+        else:
+            # restore the monkey patch. This is useful in unit-tests
+            # and also if this module has been loaded and kept in memory
+            # but Pelican.run() will be executed multiple times.
+            # Without this block the default properties will not be restored
+            # once we try to render the control variant if another experiment
+            # has been rendered before that!
+            Content.url = _orig_content_url
+            URLWrapper.url = _orig_urlwrapper_url
 
 
 def pelican_experiment_plugin(sender):
