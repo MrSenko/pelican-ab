@@ -46,7 +46,7 @@ class TestPelicanAB(unittest.TestCase):
             THEN JINJA_EXTENSIONS settings are updated
         """
         self._render(False)
-        added = any([issubclass(x, jinja_ab.JinjaExperimentExtension)
+        added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
                     for x in self.pelican.settings['JINJA_EXTENSIONS']])
         self.assertTrue(added)
 

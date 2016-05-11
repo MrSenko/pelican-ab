@@ -27,7 +27,7 @@ config = {
         'Programming Language :: Python',
     ],
     'zip_safe' : False,
-    'install_requires' : ['pelican', 'jinja-ab'],
+    'install_requires' : ['pelican', 'jinja-ab>=0.3.0'],
 }
 
 setup(**config)

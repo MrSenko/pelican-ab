@@ -9,4 +9,4 @@ install:
 script:
   - ./test.sh
 env:
-  - PELICAN=3.6.3 JINJA_AB=0.2.1
+  - PELICAN=3.6.3 JINJA_AB=0.3.0
