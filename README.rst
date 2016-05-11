@@ -16,13 +16,13 @@ To install::
     pip install pelican-ab
 
 
-Enable the plugin in ``settings.py`` like this::
+Enable the plugin in ``pelicanconf.py`` like this::
 
 
     PLUGIN_PATHS = ['path/to/pelican-ab']
     PLUGINS = ['pelican_ab']
 
-`PLUGIN_PATHS`` can be a path relative to your settings file or an absolute
+``PLUGIN_PATHS`` can be a path relative to your settings file or an absolute
 path. Alternatively, if plugins are in an importable path, you can omit
 ``PLUGIN_PATHS`` and list them::
 
@@ -59,11 +59,12 @@ Output files
 
 When rendering experiments the resulting HTML files are saved under
 ``OUTPUT_PATH`` plus the experiment name. For example 'output/v1', 'output/v2',
-etc. The control experiments are rendered dirctly under ``OUTPUT_PATH``.
+etc. The control experiments are rendered directly under ``OUTPUT_PATH``.
 
 This plugin automatically updates the ``Content.url`` and ``URLWrapper.url``
-class properties from Pelican so that {{ article.url }} and {{ author.url }}
-will point to URLs from the save experiment. In other words each experiment
+class properties from Pelican so that things like ``{{ article.url }}``
+and ``{{ author.url }}``
+will point to URLs from the same experiment. In other words each experiment
 produces its own HTML and URL structure, using the experiment name as
 prefix. For example 'blog/about-me.html' becomes 'v1/blog/about-me.html'.
 
