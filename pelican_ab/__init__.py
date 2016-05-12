@@ -23,6 +23,9 @@ class PelicanAbExperimentWriter(Writer):
         AB_EXPERIMENT=v1 make html
     """
     def __init__(self, output_path, settings=None):
+        if settings['DELETE_OUTPUT_DIRECTORY']:
+            raise RuntimeError('DELETE_OUTPUT_DIRECTORY is set to True. See pelican-ab/README.rst!')
+
         super(self.__class__, self).__init__(output_path, settings)
 
         experiment = os.environ.get(jinja_ab._ENV, jinja_ab._ENV_DEFAULT)

@@ -34,11 +34,15 @@ class TestPelicanAB(unittest.TestCase):
         if run:
             self.pelican.run()
 
+    def setUp(self):
+        self.temp_path = None
+
     def tearDown(self):
         if jinja_ab._ENV in os.environ:
             del os.environ[jinja_ab._ENV]
 
-        rmtree(self.temp_path)
+        if self.temp_path:
+            rmtree(self.temp_path)
 
     def test_jinja_ab_extension_is_added_to_settings(self):
         """
@@ -87,3 +91,16 @@ class TestPelicanAB(unittest.TestCase):
         self.assertTrue('href="/%s/a-sample-page.html"' % v1 in sample_output)
         self.assertTrue('href="/%s/author/mr-senko.html"' % v1 in
                         sample_output)
+
+    def test_if_DELETE_OUTPUT_DIRECTORY_is_true_then_raise(self):
+        """
+            WHEN DELETE_OUTPUT_DIRECTORY is True
+            THEN we'll raise an exception
+        """
+        settings = read_settings(path=None,
+                                 override={
+                                    'DELETE_OUTPUT_DIRECTORY': True,
+                                    'PLUGINS': [pelican_ab]})
+        pelican = Pelican(settings)
+        with self.assertRaises(RuntimeError):
+            pelican.run()
