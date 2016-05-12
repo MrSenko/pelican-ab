@@ -57,6 +57,11 @@ Single and double quoted names are also supported!
 Output files
 ============
 
+After encoding your experiments into the theme templates you can generate the
+resulting HTML files like this::
+
+    AB_EXPERIMENT="v1" make html
+
 When rendering experiments the resulting HTML files are saved under
 ``OUTPUT_PATH`` plus the experiment name. For example 'output/v1', 'output/v2',
 etc. The control experiments are rendered directly under ``OUTPUT_PATH``.
