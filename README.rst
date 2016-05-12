@@ -98,7 +98,7 @@ prefix. For example 'blog/about-me.html' becomes 'v1/blog/about-me.html'.
 DELETE_OUTPUT_DIRECTORY
 ========================
 
-By default ``publishconf.py`` etc has ``DELETE_OUTPUT_DIRECTORY`` set to True
+By default ``publishconf.py`` has ``DELETE_OUTPUT_DIRECTORY`` set to True
 which causes pelican-ab to raise an exception. The problem is that you need to
 execute ``make publish`` or ``make github`` for each experiment you'd like to
 publish online. When ``DELETE_OUTPUT_DIRECTORY`` is True the previous
