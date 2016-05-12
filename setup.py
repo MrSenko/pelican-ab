@@ -9,7 +9,7 @@ with open('README.rst') as file:
 
 config = {
     'name' : 'pelican-ab',
-    'version' : '0.2.1',
+    'version' : '0.2.2',
     'packages' : find_packages(),
     'author' : 'Mr. Senko',
     'author_email' : 'atodorov@mrsenko.com',

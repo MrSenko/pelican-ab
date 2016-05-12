@@ -24,7 +24,8 @@ class PelicanAbExperimentWriter(Writer):
     """
     def __init__(self, output_path, settings=None):
         if settings['DELETE_OUTPUT_DIRECTORY']:
-            raise RuntimeError('DELETE_OUTPUT_DIRECTORY is set to True. See pelican-ab/README.rst!')
+            raise RuntimeError('DELETE_OUTPUT_DIRECTORY is set to True. \
+                                See pelican-ab/README.rst!')
 
         super(self.__class__, self).__init__(output_path, settings)
 
