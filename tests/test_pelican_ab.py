@@ -48,10 +48,21 @@ class TestPelicanAB(unittest.TestCase):
         """
             WHEN this plugin is configured,
             THEN JINJA_EXTENSIONS settings are updated
+            NOTE: In Pelican 3.7.0 and later the setting is
+                JINJA_ENVIRONMENT['extensions']
         """
         self._render(False)
-        added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
-                    for x in self.pelican.settings['JINJA_EXTENSIONS']])
+        # Pelican 3.6.x
+        if 'JINJA_EXTENSIONS' in self.pelican.settings:
+            added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
+                        for x in self.pelican.settings['JINJA_EXTENSIONS']])
+        else:
+            # Pelican >= 3.7.0
+            added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
+                        for x in self.pelican.settings[
+                                    'JINJA_ENVIRONMENT'
+                                ]['extensions']])
+
         self.assertTrue(added)
 
     def test_render_the_control_experiment(self):

@@ -57,8 +57,18 @@ def pelican_experiment_plugin(sender):
 
 def add_jinja2_ext(pelican):
     """ Add JinjaExperimentExtension to Pelican settings. """
-    pelican.settings['JINJA_EXTENSIONS'].append(
-        jinja_ab.JinjaAbExperimentExtension)
+    # Pelican >= 3.7.0
+    if 'JINJA_ENVIRONMENT' in pelican.settings:
+        if 'extensions' in pelican.settings['JINJA_ENVIRONMENT']:
+            pelican.settings['JINJA_ENVIRONMENT']['extensions'].append(
+                jinja_ab.JinjaAbExperimentExtension)
+        else:
+            pelican.settings['JINJA_ENVIRONMENT']['extensions'] = [
+                jinja_ab.JinjaAbExperimentExtension]
+    else:
+        # Pelican < 3.7.0
+        pelican.settings['JINJA_EXTENSIONS'].append(
+            jinja_ab.JinjaAbExperimentExtension)
 
 
 def register():

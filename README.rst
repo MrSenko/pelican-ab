@@ -105,6 +105,19 @@ publish online. When ``DELETE_OUTPUT_DIRECTORY`` is True the previous
 contents will be deleted and **ONLY** that variation will be published!
 This will break your website because everything will be gone!
 
+CHANGELOG
+=========
+
+* v0.2.3 (Dec 13th 2016) - rebuilt for Pelican v3.7.0 which now expects
+  Jinja2 extensions in the ``JINJA_ENVIRONMENT`` setting instead of
+  ``JINJA_EXTENSIONS``.
+* v0.2.2 (May 12th 2016)
+    - raise RuntimeError if ``DELETE_OUTPUT_DIRECTORY`` is set to True
+* v0.2.1 (May 11th 2016)
+    - updated README
+* v0.2.0 (May 10th 2016)
+    - initial release
+
 
 Contributing
 ============
