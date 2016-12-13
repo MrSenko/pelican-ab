@@ -61,7 +61,7 @@ For local development use the command::
 
     AB_EXPERIMENT="xy" make regenerate
 
-or
+or::
 
     AB_EXPERIMENT="xy" make html
 
@@ -108,9 +108,10 @@ This will break your website because everything will be gone!
 CHANGELOG
 =========
 
-* v0.2.3 (Dec 13th 2016) - rebuilt for Pelican v3.7.0 which now expects
-  Jinja2 extensions in the ``JINJA_ENVIRONMENT`` setting instead of
-  ``JINJA_EXTENSIONS``.
+* v0.2.3 (Dec 13th 2016)
+    - rebuilt for Pelican v3.7.0 which now expects
+      Jinja2 extensions in the ``JINJA_ENVIRONMENT`` setting instead of
+      ``JINJA_EXTENSIONS``.
 * v0.2.2 (May 12th 2016)
     - raise RuntimeError if ``DELETE_OUTPUT_DIRECTORY`` is set to True
 * v0.2.1 (May 11th 2016)
