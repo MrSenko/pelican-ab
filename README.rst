@@ -108,7 +108,7 @@ This will break your website because everything will be gone!
 CHANGELOG
 =========
 
-* master
+* v0.2.4 (Dec 25th 2016)
     - add more tests
     - enable pylint during testing
     - fix bad ``super()`` call
