@@ -108,6 +108,10 @@ This will break your website because everything will be gone!
 CHANGELOG
 =========
 
+* master
+    - add more tests
+    - enable pylint during testing
+    - fix bad ``super()`` call
 * v0.2.3 (Dec 13th 2016)
     - rebuilt for Pelican v3.7.0 which now expects
       Jinja2 extensions in the ``JINJA_ENVIRONMENT`` setting instead of
