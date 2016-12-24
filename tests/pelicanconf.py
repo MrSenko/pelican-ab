@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Test'
-SITEURL = u'http://localhost:8000'
+SITEURL = u''
 SITENAME = u"Test Blog"
 SITETITLE = AUTHOR
 SITESUBTITLE = u'Test'

@@ -21,9 +21,10 @@ class TestPelicanAB(unittest.TestCase):
     """
         Experiments are defined in themes/simple/templates/article.html
     """
-    def _render(self, run=True):
-        self.temp_path = mkdtemp(prefix='pelican-ab.')
-        settings = read_settings(path=None,
+    def _render(self, run=True, tmp_path=None):
+        self.temp_path = tmp_path or mkdtemp(prefix='pelican-ab.')
+        settings = read_settings(path=os.path.join(CURRENT_DIR,
+                                                   'pelicanconf.py'),
                                  override={
                                     'PATH': INPUT_PATH,
                                     'OUTPUT_PATH': self.temp_path,
@@ -60,7 +61,7 @@ class TestPelicanAB(unittest.TestCase):
                                           'a-sample-page.html'), 'r').read()
         # verify correct text is rendered
         self.assertTrue('This is the control experiment' in sample_output)
-        self.assertFalse('This is v1 experiment' in sample_output)
+        self.assertFalse('This is the v1 experiment' in sample_output)
         # verify URLs are not changed
         self.assertTrue('href="/a-sample-page.html"' in sample_output)
         self.assertTrue('href="/author/mr-senko.html"' in sample_output)
@@ -80,7 +81,7 @@ class TestPelicanAB(unittest.TestCase):
                                           'a-sample-page.html'), 'r').read()
         # verify correct text is rendered
         self.assertFalse('This is the control experiment' in sample_output)
-        self.assertTrue('This is v1 experiment' in sample_output)
+        self.assertTrue('This is the v1 experiment' in sample_output)
         # verify URLs have been changed to point to objects from the experiment
         # NOTE:
         # a-simple-page.html is {{ article.url }} aka Content.url
@@ -105,7 +106,7 @@ class TestPelicanAB(unittest.TestCase):
                                           'a-sample-page.html'), 'r').read()
         # verify correct text is rendered
         self.assertFalse('This is the control experiment' in sample_output)
-        self.assertTrue('This is c1 experiment' in sample_output)
+        self.assertTrue('This is the c1 experiment' in sample_output)
         # verify URLs have been changed to point to objects from the experiment
         # NOTE:
         # a-simple-page.html is {{ article.url }} aka Content.url
@@ -114,3 +115,35 @@ class TestPelicanAB(unittest.TestCase):
         self.assertTrue('href="/%s/a-sample-page.html"' % c1 in sample_output)
         self.assertTrue('href="/%s/author/mr-senko.html"' % c1 in
                         sample_output)
+
+    def test_render_multiple_experiments(self):
+        """
+            WHEN rendering several experiments one after the other
+            THEN all of them are rendered in the same directory
+        """
+        tmp_path = mkdtemp(prefix='pelican-ab.multiple.')
+        # first render all the experiments to disk
+        for experiment in ['control', 'v1', 'c1']:
+            os.environ[jinja_ab._ENV] = experiment
+
+            self._render(tmp_path=tmp_path)
+
+        # then examine if all files are present and
+        # if all content is as expected
+        for experiment in ['control', 'v1', 'c1']:
+            dir_prefix = experiment if experiment != 'control' else ''
+            file_name = os.path.join(self.temp_path, dir_prefix,
+                                     'a-sample-page.html')
+            # files from different experiments must be present
+            self.assertTrue(os.path.exists(file_name))
+            sample_output = open(file_name, 'r').read()
+            # verify correct text is rendered
+            self.assertTrue('This is the %s experiment' % experiment in
+                            sample_output)
+            # verify URLs have been changed to point to objects
+            # from the experiment
+            url_prefix = "/%s" % experiment if experiment != 'control' else ''
+            self.assertTrue('href="%s/a-sample-page.html"' % url_prefix in
+                            sample_output)
+            self.assertTrue('href="%s/author/mr-senko.html"' % url_prefix in
+                            sample_output)
