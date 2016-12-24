@@ -1,3 +1,4 @@
+# pylint: disable=protected-access,missing-docstring,invalid-name
 import os
 
 import jinja_ab
@@ -35,6 +36,7 @@ class PelicanAbExperimentWriter(Writer):
             # and their URLs are updated as well. Static content and SITEURL
             # are not affected by this! Only HTML files are!
             self.output_path = os.path.join(self.output_path, experiment)
+            # pylint: disable=no-member
             Content.url = property(lambda s: experiment + '/' +
                                    _orig_content_url.fget(s))
             URLWrapper.url = property(lambda s: experiment + '/' +
@@ -50,7 +52,7 @@ class PelicanAbExperimentWriter(Writer):
             URLWrapper.url = _orig_urlwrapper_url
 
 
-def pelican_experiment_plugin(sender):
+def pelican_experiment_plugin(_sender):
     """ Return the writer to be used by Pelican. """
     return PelicanAbExperimentWriter
 

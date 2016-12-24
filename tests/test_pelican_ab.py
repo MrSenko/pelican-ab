@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=invalid-name,protected-access,missing-docstring
+
 import os
 import unittest
-
-import jinja_ab
-import pelican_ab
-
 from shutil import rmtree
 from tempfile import mkdtemp
 
+import jinja_ab
+import pelican_ab
 from pelican import Pelican
 from pelican.settings import read_settings
 
@@ -21,16 +21,20 @@ class TestPelicanAB(unittest.TestCase):
     """
         Experiments are defined in themes/simple/templates/article.html
     """
+    def __init__(self, methodName='runTest'):
+        super(TestPelicanAB, self).__init__(methodName)
+        self.pelican = None
+
     def _render(self, run=True, tmp_path=None):
         self.temp_path = tmp_path or mkdtemp(prefix='pelican-ab.')
         settings = read_settings(path=os.path.join(CURRENT_DIR,
                                                    'pelicanconf.py'),
                                  override={
-                                    'PATH': INPUT_PATH,
-                                    'OUTPUT_PATH': self.temp_path,
-                                    'THEME': os.path.join(THEME_PATH,
-                                                          'simple'),
-                                    'PLUGINS': [pelican_ab]})
+                                     'PATH': INPUT_PATH,
+                                     'OUTPUT_PATH': self.temp_path,
+                                     'THEME': os.path.join(THEME_PATH,
+                                                           'simple'),
+                                     'PLUGINS': [pelican_ab]})
         self.pelican = Pelican(settings)
         if run:
             self.pelican.run()
@@ -56,13 +60,13 @@ class TestPelicanAB(unittest.TestCase):
         # Pelican 3.6.x
         if 'JINJA_EXTENSIONS' in self.pelican.settings:
             added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
-                        for x in self.pelican.settings['JINJA_EXTENSIONS']])
+                         for x in self.pelican.settings['JINJA_EXTENSIONS']])
         else:
             # Pelican >= 3.7.0
             added = any([issubclass(x, jinja_ab.JinjaAbExperimentExtension)
-                        for x in self.pelican.settings[
-                                    'JINJA_ENVIRONMENT'
-                                ]['extensions']])
+                         for x in self.pelican.settings[
+                             'JINJA_ENVIRONMENT'
+                         ]['extensions']])
 
         self.assertTrue(added)
 
@@ -113,8 +117,8 @@ class TestPelicanAB(unittest.TestCase):
         """
         settings = read_settings(path=None,
                                  override={
-                                    'DELETE_OUTPUT_DIRECTORY': True,
-                                    'PLUGINS': [pelican_ab]})
+                                     'DELETE_OUTPUT_DIRECTORY': True,
+                                     'PLUGINS': [pelican_ab]})
         pelican = Pelican(settings)
         with self.assertRaises(RuntimeError):
             pelican.run()
