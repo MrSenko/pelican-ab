@@ -27,7 +27,7 @@ class PelicanAbExperimentWriter(Writer):
             raise RuntimeError('DELETE_OUTPUT_DIRECTORY is set to True. \
                                 See pelican-ab/README.rst!')
 
-        super(self.__class__, self).__init__(output_path, settings)
+        super(PelicanAbExperimentWriter, self).__init__(output_path, settings)
 
         experiment = os.environ.get(jinja_ab._ENV, jinja_ab._ENV_DEFAULT)
         if experiment != jinja_ab._ENV_DEFAULT:
