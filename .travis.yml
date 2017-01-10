@@ -1,6 +1,7 @@
 env:
 - _JINJA_AB=0.3.0 _PELICAN=3.6.3
 - !!python/unicode '_JINJA_AB=0.3.0 _PELICAN=3.7.0'
+- !!python/unicode '_JINJA_AB=0.3.0 _PELICAN=3.7.1'
 install:
 - pip install git+https://github.com/PyCQA/astroid@master https://github.com/PyCQA/pylint/zipball/master
 - pip install coverage flake8 Markdown pelican==$_PELICAN jinja-ab==$_JINJA_AB
